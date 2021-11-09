@@ -29,14 +29,23 @@ const CurrencyInput: React.VFC<
       onChange(currencyMask(event));
     }
     if (!isControlled) {
-      setInternalValue(event.target.value);
+      const {
+        target: { value },
+      } = currencyMask(event);
+      setInternalValue(value);
     }
   };
 
   return (
     <S.InputWrapper>
       <DollarSign />
-      <input type="text" value={value} onChange={handleChange} {...rest} />
+      <input
+        type="text"
+        value={value}
+        onChange={handleChange}
+        data-testid="currency-input"
+        {...rest}
+      />
     </S.InputWrapper>
   );
 };

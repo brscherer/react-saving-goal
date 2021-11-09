@@ -5,7 +5,11 @@ import { ReactComponent as ChevronRight } from '@/assets/icons/chevron-right.svg
 
 import { FormatOption } from '@/models/Date';
 
-import { getFormattedDate, parseDate } from '@/utils/dateUtils';
+import {
+  getAvailableMonth,
+  getFormattedDate,
+  parseDate,
+} from '@/utils/dateUtils';
 
 import * as S from './DateInput.styled';
 
@@ -22,7 +26,7 @@ const DateInput: React.VFC<
   const hasDefaultValue = typeof defaultValue != 'undefined';
 
   const [internalValue, setInternalValue] = useState(
-    hasDefaultValue ? defaultValue : ''
+    hasDefaultValue ? defaultValue : getAvailableMonth()
   );
 
   const value = isControlled ? valueFromProps : internalValue;
@@ -106,13 +110,15 @@ const DateInput: React.VFC<
 
   return (
     <S.FieldWrapper>
-      <ChevronLeft onClick={handleDecreaseDate} />
+      <ChevronLeft data-testid="chevron-left" onClick={handleDecreaseDate} />
       <S.InputWrapper>
         <input
           type="date"
           value={value}
+          onClick={(e) => e.preventDefault()}
           onChange={handleDateChange}
           onKeyDown={handleKeyDown}
+          data-testid="date-input"
           {...rest}
         />
         <S.InputValue>
@@ -120,7 +126,7 @@ const DateInput: React.VFC<
           <S.YearValue>{year}</S.YearValue>
         </S.InputValue>
       </S.InputWrapper>
-      <ChevronRight onClick={handleIncreaseDate} />
+      <ChevronRight data-testid="chevron-right" onClick={handleIncreaseDate} />
     </S.FieldWrapper>
   );
 };

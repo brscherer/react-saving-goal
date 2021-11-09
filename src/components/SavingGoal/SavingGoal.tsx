@@ -104,7 +104,10 @@ const SavingGoal: React.VFC = () => {
           <S.MonthlyAmount>
             <S.MonthlyAmountSection>
               Monthly amount
-              <S.MonthlyAmountValue title={monthlyAmount}>
+              <S.MonthlyAmountValue
+                data-testid="monthly-amount"
+                title={monthlyAmount}
+              >
                 {monthlyAmount}
               </S.MonthlyAmountValue>
             </S.MonthlyAmountSection>
